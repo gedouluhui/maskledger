@@ -1,0 +1,24 @@
+[build-system]
+requires = ["setuptools>=77", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "maskledger"
+version = "0.1.0"
+description = "Offline evidence of pixel and topology loss in segmentation annotation conversions"
+readme = "README.md"
+requires-python = ">=3.11"
+license = "MIT"
+dependencies = ["numpy>=1.26,<3", "Pillow>=10.3,<13", "scipy>=1.11,<2", "pycocotools>=2.0.8,<3"]
+
+[project.scripts]
+maskledger = "maskledger.cli:main"
+
+[project.urls]
+Repository = "https://github.com/gedouluhui/maskledger"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+maskledger = ["templates/*.html"]

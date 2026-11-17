@@ -1,0 +1,14 @@
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+build/
+dist/
+.coverage
+.pytest_cache/
+.superpowers/
+docs/superpowers/
+artifacts/
+demo-output/
+.env
+*.log
