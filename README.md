@@ -104,7 +104,7 @@ python scripts/test_mutants.py
 python -m build
 ```
 
-Tests include hand-authored topology cases, compressed RLE checks against pycocotools, real CLI output/exit codes, malicious label text, exact large-ID browser data, malformed JSON and native raster-expansion limits. Tests establish these contracts, not universal correctness or dataset accuracy. Core code received an independent review and a scoped verification of the resulting fixes. Real-world user validation remains open.
+Tests include hand-authored topology cases, compressed RLE checks against pycocotools, real CLI output/exit codes, malicious label text, exact large-ID browser data, malformed JSON and native raster-expansion limits. Tests establish these contracts, not universal correctness or dataset accuracy. Core code received an independent review and a scoped verification of the resulting fixes. Version 0.1.1 makes report publication transactional (staged output committed only after both JSON and HTML succeed) and ships a source archive that rebuilds its wheel and re-runs the installed CLI in a fresh environment; a fresh independent review of these additions is outstanding. Real-world user validation remains open.
 
 Please report a minimal synthetic before/after pair, command, Python/dependency versions and expected result. Do not post confidential annotations. Small adapters and independent regression cases are welcome; avoid broad new format support without a stated pixel/identity contract.
 

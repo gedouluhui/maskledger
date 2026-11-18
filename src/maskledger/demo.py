@@ -5,7 +5,8 @@ import tempfile
 import numpy as np
 from .audit import audit_coco
 from .errors import InputError
-from .report import write_report
+from .report import _write_into
+from .output import output_transaction
 
 
 def _rle(mask):
@@ -49,6 +50,7 @@ def make_demo(output_dir):
         if report['summary'].get('equivalent') != 1 or report['summary'].get('changed') != 4:
             raise RuntimeError('demo audit did not detect its known positive and negative controls')
         report['demo']='Self-authored masks. No external data or model quality measurement.'
-        write_report(report,output_dir)
-        (output_dir/a.name).write_bytes(a.read_bytes());(output_dir/b.name).write_bytes(b.read_bytes())
+        with output_transaction(output_dir) as staging:
+            _write_into(report,staging)
+            (staging/a.name).write_bytes(a.read_bytes());(staging/b.name).write_bytes(b.read_bytes())
     return report

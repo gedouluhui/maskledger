@@ -16,8 +16,14 @@ class CLITests(unittest.TestCase):
         for p in (self.a, self.b): p.write_text(json.dumps(dataset()), encoding='utf-8')
 
     def cli(self, *args):
-        env = dict(os.environ, PYTHONPATH=str(Path(__file__).resolve().parents[1]/'src'))
-        return subprocess.run([sys.executable, '-m', 'maskledger', *map(str,args)], cwd=self.root,
+        env = dict(os.environ)
+        isolated = env.get('LEDGER_TEST_INSTALLED') == '1'
+        if isolated:
+            env.pop('PYTHONPATH', None)
+        else:
+            env['PYTHONPATH'] = str(Path(__file__).resolve().parents[1]/'src')
+        command = [sys.executable, *(['-I'] if isolated else []), '-m', 'maskledger', *map(str,args)]
+        return subprocess.run(command, cwd=self.root,
                               env=env, capture_output=True, text=True, timeout=30)
 
     def test_complete_equivalence_writes_report(self):

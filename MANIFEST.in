@@ -1,0 +1,10 @@
+include LICENSE README.md README.zh-CN.md
+include docs/index.html
+recursive-include src/maskledger *.py *.html
+recursive-include tests *.py
+recursive-include scripts *.py
+prune docs/superpowers
+prune artifacts
+prune .superpowers
+prune .venv
+global-exclude *.pyc

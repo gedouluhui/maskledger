@@ -3,6 +3,7 @@ import json
 from importlib.resources import files
 from pathlib import Path
 from .errors import InputError
+from .output import output_transaction
 
 
 def _web_numbers(value):
@@ -17,9 +18,12 @@ def _web_numbers(value):
 
 
 def write_report(report, output_dir):
+    with output_transaction(output_dir) as staging:
+        _write_into(report, staging)
+
+
+def _write_into(report, output_dir):
     output_dir = Path(output_dir)
-    if output_dir.exists():
-        raise InputError('output directory already exists; choose a new directory')
     try:
         archive = json.dumps(report, ensure_ascii=True, allow_nan=False, indent=2)
         encoded = json.dumps(_web_numbers(report), ensure_ascii=True, allow_nan=False, separators=(',', ':'))
@@ -27,6 +31,5 @@ def write_report(report, output_dir):
         raise InputError('report cannot be safely serialized') from exc
     page = files('maskledger').joinpath('templates/report.html').read_text(encoding='utf-8')
     page = page.replace('__REPORT_DATA__', encoded.replace('<', '\\u003c'))
-    output_dir.mkdir(parents=True, exist_ok=False)
     (output_dir/'report.json').write_text(archive, encoding='utf-8')
     (output_dir/'index.html').write_text(page, encoding='utf-8')
