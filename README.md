@@ -1,5 +1,7 @@
 # MaskLedger
 
+[![CI](https://github.com/gedouluhui/maskledger/actions/workflows/ci.yml/badge.svg)](https://github.com/gedouluhui/maskledger/actions/workflows/ci.yml)
+
 **Find the structure your segmentation conversion lost.**
 
 [Interactive demo](https://gedouluhui.github.io/maskledger/) · [中文](README.zh-CN.md) · [Offline example](docs/index.html) · [MIT license](LICENSE)
