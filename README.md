@@ -111,3 +111,34 @@ Please report a minimal synthetic before/after pair, command, Python/dependency 
 ## License and dependencies
 
 Original code and self-authored demo annotations: MIT. NumPy, Pillow, SciPy and pycocotools retain their own licenses (BSD-family / MIT-CMU and bundled third-party notices as applicable). No Ultralytics code, model weights, external datasets, private media or standalone third-party binaries are bundled. AI assistance was used for implementation and review; the executable checks and scope above are the basis for claims.
+
+## Quickstart and support
+
+### Problem
+Find pixel and topology structure lost when converting between two COCO instance-segmentation annotation files.
+
+### Install
+```sh
+python -m pip install .
+```
+
+### Success
+```sh
+maskledger demo --out demo-output
+```
+Expected: The real auditor reproduces its known changed and unchanged controls; exit 0.
+
+### Deliberate failure
+```sh
+maskledger compare demo-output/reference.json demo-output/candidate.json --out conversion-report
+```
+Expected: The changed synthetic annotations produce a changed report and exit 1.
+
+### Evidence and coverage boundaries
+Evidence includes hand-authored topology cases, compressed RLE checks against pycocotools, real CLI output and exit codes, malicious label text, exact large-ID browser data, malformed JSON, native raster limits, and mutation checks. A difference is not automatically a bad label or converter bug without conversion logs.
+
+### Support status
+Version 0.1.1 supports Python 3.11+ and the documented COCO polygon/RLE subset. Report publication is transactional in this version, but a fresh independent re-review and real-world user validation remain outstanding. Maintenance is best-effort with no SLA.
+
+### Limitations
+Direct YOLO/LabelMe import, inferred matching, image-content checks, automatic repair, semantic truth, and model quality are outside scope. Topology is 8-connected foreground with 4-connected background; workload guards are not a security sandbox or hard memory guarantee.
